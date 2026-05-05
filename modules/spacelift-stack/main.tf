@@ -4,6 +4,7 @@ locals {
   drift_detection_enabled  = local.enabled && var.drift_detection_enabled
   stack_dependency_enabled = local.enabled && var.spacelift_stack_dependency_enabled
   webhook_enabled          = local.enabled && var.webhook_enabled
+  admin_role_enabled       = local.enabled && var.administrative
 
   map_of_labels_array = {
     for label in var.labels : split(":", label)[0] => split(":", label)[1]... if length(split(":", label)) > 1 # the ellipsis creates a group of values
@@ -22,7 +23,6 @@ resource "spacelift_stack" "this" {
 
   name                         = var.stack_name
   description                  = var.description
-  administrative               = var.administrative
   autodeploy                   = var.autodeploy
   autoretry                    = var.autoretry
   repository                   = var.repository
@@ -111,6 +111,14 @@ resource "spacelift_stack" "this" {
       namespace = lookup(var.showcase, "namespace", null)
     }
   }
+}
+
+resource "spacelift_role_attachment" "admin" {
+  count = local.admin_role_enabled ? 1 : 0
+
+  stack_id = spacelift_stack.this[0].id
+  role_id  = var.admin_role_id
+  space_id = coalesce(var.admin_space_id, spacelift_stack.this[0].space_id)
 }
 
 # spacelift_stack_destructor is a special resource which, when deleted, will delete all resources in the stack.

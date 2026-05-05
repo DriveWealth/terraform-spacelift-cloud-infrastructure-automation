@@ -1,7 +1,19 @@
 variable "administrative" {
   type        = bool
-  description = "Whether this stack can manage other stacks"
+  description = "Whether this stack can manage other stacks. When true, creates a spacelift_role_attachment with the admin role instead of setting the deprecated administrative flag."
   default     = false
+}
+
+variable "admin_role_id" {
+  type        = string
+  description = "The role ID to attach when administrative is true. Defaults to the built-in space-admin role."
+  default     = "space-admin"
+}
+
+variable "admin_space_id" {
+  type        = string
+  description = "The space ID where the admin role attachment is effective. Defaults to the stack's own space."
+  default     = null
 }
 
 variable "after_apply" {
