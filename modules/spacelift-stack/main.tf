@@ -23,6 +23,7 @@ resource "spacelift_stack" "this" {
 
   name                         = var.stack_name
   description                  = var.description
+  administrative               = var.administrative
   autodeploy                   = var.autodeploy
   autoretry                    = var.autoretry
   repository                   = var.repository
