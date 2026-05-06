@@ -4,7 +4,7 @@ locals {
   drift_detection_enabled  = local.enabled && var.drift_detection_enabled
   stack_dependency_enabled = local.enabled && var.spacelift_stack_dependency_enabled
   webhook_enabled          = local.enabled && var.webhook_enabled
-  admin_role_enabled       = local.enabled && var.administrative
+  admin_role_enabled       = local.enabled && var.attach_admin_role
 
   map_of_labels_array = {
     for label in var.labels : split(":", label)[0] => split(":", label)[1]... if length(split(":", label)) > 1 # the ellipsis creates a group of values
@@ -23,7 +23,7 @@ resource "spacelift_stack" "this" {
 
   name                         = var.stack_name
   description                  = var.description
-  administrative               = var.administrative
+  administrative               = var.administrative  # Phase 2: Set to false to complete migration to spacelift_role_attachment. Do NOT remove administrative from YAML settings — it's used by context_filters for stack discovery.
   autodeploy                   = var.autodeploy
   autoretry                    = var.autoretry
   repository                   = var.repository

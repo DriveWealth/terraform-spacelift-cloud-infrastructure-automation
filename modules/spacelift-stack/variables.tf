@@ -4,9 +4,15 @@ variable "administrative" {
   default     = false
 }
 
+variable "attach_admin_role" {
+  type        = bool
+  description = "Whether to attach the admin role to this stack. Decoupled from the administrative flag to support phased migration."
+  default     = false
+}
+
 variable "admin_role_id" {
   type        = string
-  description = "The role ID to attach when administrative is true. Defaults to the built-in space-admin role."
+  description = "The role ID to attach when attach_admin_role is true. Defaults to the built-in space-admin role."
   default     = "space-admin"
 }
 
