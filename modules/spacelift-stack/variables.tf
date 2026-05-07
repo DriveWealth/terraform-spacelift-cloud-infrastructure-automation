@@ -1,6 +1,6 @@
 variable "administrative" {
   type        = bool
-  description = "Whether this stack can manage other stacks. When true, creates a spacelift_role_attachment with the admin role instead of setting the deprecated administrative flag."
+  description = "Whether to set the deprecated administrative flag on the spacelift_stack resource. This flag is being phased out by Spacelift — use attach_admin_role instead for role-based permissions."
   default     = false
 }
 
