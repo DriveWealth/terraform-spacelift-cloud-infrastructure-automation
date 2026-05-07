@@ -23,7 +23,7 @@ resource "spacelift_stack" "this" {
 
   name                         = var.stack_name
   description                  = var.description
-  administrative               = var.administrative  # Phase 2: Set to false to complete migration to spacelift_role_attachment. Do NOT remove administrative from YAML settings — it's used by context_filters for stack discovery.
+  administrative               = var.administrative  # Phase 2: Set to false either here or in module invocation. to complete migration to spacelift_role_attachment. Do NOT remove administrative from YAML settings — it's used by context_filters for stack discovery.
   autodeploy                   = var.autodeploy
   autoretry                    = var.autoretry
   repository                   = var.repository
