@@ -114,11 +114,17 @@ resource "spacelift_stack" "this" {
   }
 }
 
+resource "spacelift_role" "admin" {
+  count   = local.admin_role_enabled ? 1 : 0
+  name    = "stack-admin-${spacelift_stack.this[0].id}"
+  actions = ["SPACE_ADMIN"]
+}
+
 resource "spacelift_role_attachment" "admin" {
   count = local.admin_role_enabled ? 1 : 0
 
   stack_id = spacelift_stack.this[0].id
-  role_id  = var.admin_role_id
+  role_id  = spacelift_role.admin[0].id
   space_id = coalesce(var.admin_space_id, spacelift_stack.this[0].space_id)
 }
 
