@@ -12,7 +12,7 @@ variable "attach_admin_role" {
 
 variable "admin_role_id" {
   type        = string
-  description = "The role ID to attach when attach_admin_role is true. Defaults to the built-in space-admin role."
+  description = "The slug of the Spacelift role to attach when attach_admin_role is true. Resolved via data source. Defaults to the built-in space-admin role."
   default     = "space-admin"
 }
 
