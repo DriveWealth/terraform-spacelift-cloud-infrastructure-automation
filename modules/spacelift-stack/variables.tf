@@ -12,7 +12,7 @@ variable "attach_admin_role" {
 
 variable "admin_role_id" {
   type        = string
-  description = "The slug of the Spacelift role to attach when attach_admin_role is true. Resolved via data source. Defaults to the built-in space-admin role."
+  description = "Unused — retained for interface compatibility. Admin roles are now created per-stack via spacelift_role resource with SPACE_ADMIN action."
   default     = "space-admin"
 }
 
