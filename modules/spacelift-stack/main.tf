@@ -161,10 +161,11 @@ resource "spacelift_aws_role" "this" {
 resource "spacelift_drift_detection" "this" {
   count = local.drift_detection_enabled ? 1 : 0
 
-  stack_id  = spacelift_stack.this[0].id
-  reconcile = var.drift_detection_reconcile
-  schedule  = var.drift_detection_schedule
-  timezone  = var.drift_detection_timezone
+  stack_id     = spacelift_stack.this[0].id
+  reconcile    = var.drift_detection_reconcile
+  schedule     = var.drift_detection_schedule
+  timezone     = var.drift_detection_timezone
+  ignore_state = var.drift_detection_ignore_state
 }
 
 resource "spacelift_webhook" "this" {
