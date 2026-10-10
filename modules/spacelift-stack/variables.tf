@@ -217,6 +217,12 @@ variable "drift_detection_timezone" {
   default     = "UTC"
 }
 
+variable "drift_detection_ignore_state" {
+  type        = bool
+  description = "Whether drift detection should run on a stack in any final state, instead of only when the stack is Finished"
+  default     = false
+}
+
 variable "github_enterprise" {
   type        = map(any)
   description = "GitHub Enterprise (self-hosted) VCS settings"
